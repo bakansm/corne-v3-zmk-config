@@ -3,6 +3,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/ext_power.h>
 
 #define FIRST   1
 #define SECOND  2
@@ -12,18 +13,26 @@
 };   
 
 / {
+        macros {
+            alt_tab: alt_tab {
+                label = "ALT_TAB";
+                compatible = "zmk,behavior-macro";
+                #binding-cells = <0>;
+                bindings
+                    = <&macro_press &kp LALT &kp TAB>;
+            };
+        };
+
         chosen {
             zmk,underglow = &led_strip;
         };
-                
-     
                 
         keymap {
             compatible = "zmk,keymap";
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |      ESC      |       Q       |       W       |       E       |       R       |       T       |       |       Y       |       U       |       I       |       O       |       P       |     BSPC      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
-                //  |      CAPS     |       A       |       S       |       D       |       F       |       G       |       |       H       |       J       |       K       |       L       |       ;       |       '       |
+                //  |      TAB      |       A       |       S       |       D       |       F       |       G       |       |       H       |       J       |       K       |       L       |       ;       |       '       |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |     SHIFT     |       Z       |       X       |       C       |       V       |       B       |       |       N       |       M       |       ,       |       .       |       /       |      GUI      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
@@ -32,7 +41,7 @@
             Base_layer {
                 bindings = <
                         &kp ESC         &kp Q           &kp W           &kp E           &kp R           &kp T                   &kp Y           &kp U           &kp I           &kp O           &kp P           &kp BSPC
-                        &kp CAPS        &kp A           &kp S           &kp D           &kp F           &kp G                   &kp H           &kp J           &kp K           &kp L           &kp SEMICOLON   &kp SQT
+                        &kp TAB         &kp A           &kp S           &kp D           &kp F           &kp G                   &kp H           &kp J           &kp K           &kp L           &kp SEMICOLON   &kp SQT
                         &kp LSHFT       &kp Z           &kp X           &kp C           &kp V           &kp B                   &kp N           &kp M           &kp COMMA       &kp PERIOD      &kp SLASH       &kp RGUI
                                                                         &kp LCTRL       &mo FIRST       &kp SPACE               &kp RET         &mo FIRST       &kp RALT
                 >;
@@ -44,7 +53,7 @@
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |       `       |       1       |       2       |       3       |       4       |       5       |       |       6       |       7       |       8       |       9       |       0       |      DEL      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
-                //  |    ALT TAB    |      TAB      |     COPY      |     PATSE     |      CUT      |     PG UP     |       |      LEFT     |       UP      |     RIGHT     |     DOWN      |               |               |
+                //  |    ALT TAB    |      CAPS     |     COPY      |     PATSE     |      CUT      |     PG UP     |       |      LEFT     |       UP      |     RIGHT     |     DOWN      |               |               |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |     SHIFT     |      UNDO     |      REDO     |     HOME      |      END      |    PG DOWN    |       |       [       |       ]       |       -       |       +       |       \       |      GUI      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
@@ -53,7 +62,7 @@
             first_layer {
                 bindings = <
                         &kp GRAVE       &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                  &kp N6          &kp N7          &kp N8          &kp N9          &kp N0          &kp DEL 
-                        &mt LALT TAB    &kp TAB         &kp C_AC_COPY   &kp C_AC_PASTE  &kp C_AC_CUT    &kp PG_UP               &kp LEFT        &kp DOWN        &kp UP          &kp RIGHT       &trans          &trans
+                        &alt_tab        &kp CAPS        &kp C_AC_COPY   &kp C_AC_PASTE  &kp C_AC_CUT    &kp PG_UP               &kp LEFT        &kp DOWN        &kp UP          &kp RIGHT       &trans          &trans
                         &kp LSHFT       &kp C_AC_UNDO   &kp C_AC_REDO   &kp HOME        &kp END         &kp PG_DN               &kp LBKT        &kp RBKT        &kp MINUS       &kp EQUAL       &kp BSLH        &kp RGUI 
                                                                         &kp LCTRL       &mo SECOND      &kp SPACE               &kp RET         &mo SECOND      &kp RALT                 
                 >;
@@ -67,15 +76,15 @@
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |      CTL      |      BT1      |      BT2      |      BT3      |      BT4      |      BT5      |       |     VOL -     |     VOL +     |     MUTE      |      BRI -    |      BRI +     |      ALT      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
-                //  |     SHIFT     |    BT NEXT    |    BT PREV    |   BT CLEAR    |  BLT TOGGLE   |  RGB TOGGLE   |       |   RGB BRI -   |   RGB BRI +   |  RGB SPEED -  |  RGB SPEED +  |   RGB EFF +    |      GUI      |
+                //  |     SHIFT     |    BT CLEAR   |               |  EXT-POW TOG  |  BLT TOGGLE   |  RGB TOGGLE   |       |   RGB BRI -   |   RGB BRI +   |  RGB SPEED -  |  RGB SPEED +  |   RGB EFF +    |      GUI      |
                 //  -------------------------------------------------------------------------------------------------       -------------------------------------------------------------------------------------------------
                 //  |                                               |               |               |               |       |               |               |               |                                             
                 //                                                  -------------------------------------------------       -------------------------------------------------
             second_layer {
                 bindings = <
                         &kp F11         &kp F1          &kp F2          &kp F3          &kp F4          &kp F5                  &kp F6          &kp F7          &kp F8          &kp F9          &kp F10         &kp F12 
-                        &kp LCTRL       &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4            &kp C_VOL_DN    &kp C_VOL_UP    &kp C_MUTE      &kp C_BRI_DEC   &kp C_BRI_INC   &kp RALT 
-                        &kp LSHFT       &bt BT_NXT	    &bt BT_PRV      &bt BT_CLR      &out OUT_TOG    &rgb_ug RGB_TOG         &rgb_ug RGB_BRD &rgb_ug RGB_BRI &rgb_ug RGB_SPD &rgb_ug RGB_SPI &rgb_ug RGB_EFF &kp RGUI 
+                        &kp LCTRL       &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4            &kp C_VOL_DN    &kp C_VOL_UP    &kp C_MUTE      &kp C_BRI_DEC   &kp C_BRI_INC   &kp RALT 
+                        &kp LSHFT       &bt BT_CLR	    &trans        &ext_power EP_TOG &out OUT_TOG    &rgb_ug RGB_TOG         &rgb_ug RGB_BRD &rgb_ug RGB_BRI &rgb_ug RGB_SPD &rgb_ug RGB_SPI &rgb_ug RGB_EFF &kp RGUI 
                                                                         &trans          &trans          &trans                  &trans          &trans          &trans
                     >;
             };
